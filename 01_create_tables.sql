@@ -60,3 +60,5 @@ SELECT customers.region, SUM(orders.sales) AS celkovy_predaj, AVG(orders.discoun
 SELECT customers.region, SUM(orders.sales) AS celkovy_predaj, AVG(orders.discount) AS priemerna_zlava, COUNT(orders.order_id) AS pocet_objednavok FROM customers INNER JOIN orders ON orders.customer_id = customers.customer_id GROUP BY customers.region;;
 /*12*/
 SELECT customers.region, SUM(CASE WHEN orders.sales > 1000 THEN 1 ELSE 0 END) AS high_value, SUM(CASE WHEN orders.sales <= 1000 THEN 1 ELSE 0 END) AS low_value FROM customers INNER JOIN orders ON orders.customer_id = customers.customer_id GROUP BY customers.region;
+/*13*/
+SELECT customers.customer_name, SUM(orders.sales) AS celkovy_predaj, AVG(orders.discount) AS priemerna_zlava, COUNT(orders.order_id) AS pocet_objednavok, CASE WHEN SUM(orders.sales) > 2500 THEN 'VIP' ELSE 'REGULAR' END AS typ_zakaznika FROM customers INNER JOIN orders ON orders.customer_id = customers.customer_id GROUP BY customers.customer_id, customers.customer_name ORDER BY celkovy_predaj DESC;

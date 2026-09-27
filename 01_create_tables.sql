@@ -36,4 +36,4 @@ CREATE TABLE orders (
 );
 
 SELECT * FROM customers;
-
+SELECT orders.order_id,customers.customer_name,orders.sales  FROM orders INNER JOIN customers ON customers.customer_id = orders.customer_id WHERE sales>500 

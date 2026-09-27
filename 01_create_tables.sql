@@ -47,3 +47,5 @@ SELECT products.product_name, SUM(orders.sales) AS SPOLU FROM products INNER JOI
 SELECT customers.customer_name, orders.order_id, orders.sales FROM customers FULL OUTER JOIN orders ON orders.customer_id = customers.customer_id;
 
 SELECT customers.region, SUM(orders.sales) AS celkovy_predaj FROM orders INNER JOIN customers ON customers.customer_id = orders.customer_id GROUP BY customers.region;
+
+SELECT customers.customer_name, COUNT(orders.order_id) AS pocet_objednavok FROM customers LEFT JOIN orders ON orders.customer_id = customers.customer_id GROUP BY customers.customer_id, customers.customer_name;

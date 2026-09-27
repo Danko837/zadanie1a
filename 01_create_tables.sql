@@ -51,3 +51,5 @@ SELECT customers.region, SUM(orders.sales) AS celkovy_predaj FROM orders INNER J
 SELECT customers.customer_name, COUNT(orders.order_id) AS pocet_objednavok FROM customers LEFT JOIN orders ON orders.customer_id = customers.customer_id GROUP BY customers.customer_id, customers.customer_name;
 
 SELECT products.category, AVG(orders.discount) AS priemerna_zlava FROM products INNER JOIN orders ON orders.product_id = products.product_id GROUP BY products.category;
+
+SELECT customers.customer_name, SUM(orders.sales) AS celkovy_nakup FROM customers INNER JOIN orders ON orders.customer_id = customers.customer_id GROUP BY customers.customer_id, customers.customer_name HAVING SUM(orders.sales) > 2000;

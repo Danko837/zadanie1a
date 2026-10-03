@@ -145,3 +145,12 @@ WHERE EXISTS (
     HAVING COUNT(DISTINCT s.region) > 3
 )
 ORDER BY f.product_category;
+/*12*/
+SELECT f.*
+FROM flourmills_sales AS f
+WHERE EXISTS (
+    SELECT 1
+    FROM flourmills_sales AS s
+    WHERE s.region = f.region
+      AND EXTRACT(YEAR FROM s.sale_date) = 2024
+);

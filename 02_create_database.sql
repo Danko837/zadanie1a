@@ -154,3 +154,12 @@ WHERE EXISTS (
     WHERE s.region = f.region
       AND EXTRACT(YEAR FROM s.sale_date) = 2024
 );
+/*13*/
+SELECT DISTINCT f.product_category
+FROM flourmills_sales AS f
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM flourmills_sales AS s
+    WHERE s.product_category = f.product_category
+      AND s.total_amount > 500000
+);

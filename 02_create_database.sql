@@ -123,3 +123,14 @@ WHERE EXISTS (
     GROUP BY s.product_name
     HAVING COUNT(DISTINCT EXTRACT(MONTH FROM s.sale_date)) > 1
 );
+/*10*/
+SELECT f.product_category,
+       f.product_name,
+       f.total_amount
+FROM flourmills_sales AS f
+WHERE EXISTS (
+    SELECT 1
+    FROM flourmills_sales AS s
+    WHERE s.product_category = f.product_category
+      AND s.total_amount > 200000
+);

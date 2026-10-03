@@ -1,0 +1,46 @@
+
+CREATE DATABASE datacraftinglab_db;
+
+DROP TABLE IF EXISTS flourmills_sales;
+
+CREATE TABLE flourmills_sales (
+    sales_id          INTEGER PRIMARY KEY,
+    sale_date         DATE,
+    region            VARCHAR(100),
+    state             VARCHAR(100),
+    product_category  VARCHAR(100),
+    product_name      VARCHAR(150),
+    customer_type     VARCHAR(100),
+    customer_id       INTEGER,
+    quantity_sold     INTEGER,
+    unit_price        NUMERIC(12,2),
+    discount_rate     INTEGER,
+    payment_method    VARCHAR(100),
+    sales_rep         VARCHAR(150),
+    warehouse         VARCHAR(100),
+    delivery_status   VARCHAR(100),
+    order_channel     VARCHAR(100),
+    batch_number      INTEGER,
+    production_date   DATE,
+    total_amount      NUMERIC(14,2)
+);
+
+
+
+SELECT * FROM flourmills_sales;
+
+
+SELECT COUNT(*) AS pocet_riadkov FROM flourmills_sales;
+
+
+SELECT MIN(sale_date) AS prvy_predaj,
+       MAX(sale_date) AS posledny_predaj
+FROM flourmills_sales;
+
+
+SELECT COUNT(*) AS chybajuce_hodnoty
+FROM flourmills_sales
+WHERE sale_date IS NULL
+   OR product_name IS NULL
+   OR total_amount IS NULL;
+

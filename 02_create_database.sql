@@ -134,3 +134,14 @@ WHERE EXISTS (
     WHERE s.product_category = f.product_category
       AND s.total_amount > 200000
 );
+/*11*/
+SELECT DISTINCT f.product_category
+FROM flourmills_sales AS f
+WHERE EXISTS (
+    SELECT 1
+    FROM flourmills_sales AS s
+    WHERE s.product_category = f.product_category
+    GROUP BY s.product_category
+    HAVING COUNT(DISTINCT s.region) > 3
+)
+ORDER BY f.product_category;

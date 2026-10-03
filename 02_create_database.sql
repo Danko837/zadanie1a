@@ -93,3 +93,13 @@ FROM (
 ) AS cat_sales
 WHERE total_sales > 50000000
 ORDER BY total_sales DESC;
+/*7*/
+SELECT f.product_name,
+       f.product_category,
+       f.total_amount
+FROM flourmills_sales AS f
+WHERE f.total_amount > (
+    SELECT AVG(s.total_amount)
+    FROM flourmills_sales AS s
+    WHERE s.product_category = f.product_category
+);

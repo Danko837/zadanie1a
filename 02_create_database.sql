@@ -163,3 +163,12 @@ WHERE NOT EXISTS (
     WHERE s.product_category = f.product_category
       AND s.total_amount > 500000
 );
+/*14*/
+SELECT DISTINCT f.region
+FROM flourmills_sales AS f
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM flourmills_sales AS s
+    WHERE s.region = f.region
+      AND s.product_category = 'Flour'
+);

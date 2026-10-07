@@ -1,4 +1,5 @@
-
+-- Active: 1790164021180@@127.0.0.1@5432datacrafting@public
+-- Active: 1790164021180@@127.0.0.1@5432@datacrafting
 CREATE DATABASE datacraftinglab_db;
 
 DROP TABLE IF EXISTS flourmills_sales;

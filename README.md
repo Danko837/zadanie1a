@@ -1,1 +1,1 @@
-# zadanie1a
+Prvý týždeň

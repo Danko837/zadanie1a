@@ -100,3 +100,18 @@ FROM price_history
 WHERE previous_price IS NOT NULL
   AND current_price <> previous_price
 ORDER BY invoice_date ASC;
+/*6*/
+WITH customer_totals AS (
+    SELECT
+        customer_id,
+        SUM(quantity * unit_price) AS total_amount
+    FROM retail_sales
+    WHERE customer_id IS NOT NULL
+    GROUP BY customer_id
+)
+SELECT
+    customer_id,
+    total_amount,
+    NTILE(4) OVER (ORDER BY total_amount DESC) AS sales_quartile
+FROM customer_totals
+ORDER BY total_amount ASC;

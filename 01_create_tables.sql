@@ -170,3 +170,29 @@ SELECT DISTINCT
 FROM order_dates
 WHERE last_order_date < latest_order_date - INTERVAL '90 days'
 ORDER BY last_order_date DESC;
+/*7*/
+WITH monthly AS (
+    SELECT
+        DATE_TRUNC('month', order_date)::date AS month,
+        SUM(sales) AS monthly_sales
+    FROM orders
+    GROUP BY DATE_TRUNC('month', order_date)
+),
+with_prev AS (
+    SELECT
+        month,
+        monthly_sales,
+        LAG(monthly_sales) OVER (ORDER BY month) AS prev_month_sales
+    FROM monthly
+)
+SELECT
+    month,
+    monthly_sales,
+    prev_month_sales,
+    monthly_sales - prev_month_sales AS sales_change,
+    ROUND(
+        (monthly_sales - prev_month_sales) * 100.0 / prev_month_sales,
+        2
+    ) AS growth_percentage
+FROM with_prev
+ORDER BY month;

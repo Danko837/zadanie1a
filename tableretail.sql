@@ -220,3 +220,27 @@ SELECT
 FROM ranked
 WHERE sales_rank <= 5
 ORDER BY country, month, sales_rank, customer_id;
+/*11*/
+WITH ranked AS (
+    SELECT
+        invoice_no,
+        stock_code,
+        description,
+        quantity,
+        unit_price,
+        DENSE_RANK() OVER (
+            PARTITION BY invoice_no
+            ORDER BY unit_price DESC
+        ) AS price_rank
+    FROM retail_sales
+)
+SELECT
+    invoice_no,
+    stock_code,
+    description,
+    quantity,
+    unit_price,
+    price_rank
+FROM ranked
+WHERE price_rank BETWEEN 1 AND 5
+ORDER BY invoice_no, price_rank, stock_code;
